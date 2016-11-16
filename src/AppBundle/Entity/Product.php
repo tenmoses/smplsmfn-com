@@ -36,7 +36,7 @@ class Product
     private $description;
 
     /**
-     * @var int
+     * @var float
      *
      * @ORM\Column(name="price", type="float")
      */
@@ -48,6 +48,18 @@ class Product
      * @ORM\Column(name="amount", type="integer")
      */
     private $amount;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="product")
+     */
+    private $category;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="draft", type="boolean")
+     */
+    private $draft = false;
 
 
     /**
@@ -111,7 +123,7 @@ class Product
     /**
      * Set price
      *
-     * @param integer $price
+     * @param float $price
      *
      * @return Product
      */
@@ -125,7 +137,7 @@ class Product
     /**
      * Get price
      *
-     * @return int
+     * @return float
      */
     public function getPrice()
     {
@@ -155,4 +167,29 @@ class Product
     {
         return $this->amount;
     }
+
+    /**
+     * Set category
+     *
+     * @param string Category $category
+     *
+     * @return
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     **/
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+
+
 }
