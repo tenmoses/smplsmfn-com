@@ -51,6 +51,7 @@ class ProductAdmin extends AbstractAdmin
 					->add('description')
 					->add('price')
 					->add('amount')
+					->add('amount_of_product_comments')
 					->add('draft');
 	}
 

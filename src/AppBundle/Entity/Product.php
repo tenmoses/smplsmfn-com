@@ -50,9 +50,21 @@ class Product
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="product")
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ProductComment", mappedBy="product")
+     */
+    private $product_comments;
+
+    /**
+     * @var int
+     */
+    private $amount_of_product_comments;
 
     /**
      * @var bool
@@ -192,4 +204,79 @@ class Product
 
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->product_comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set draft
+     *
+     * @param boolean $draft
+     *
+     * @return Product
+     */
+    public function setDraft($draft)
+    {
+        $this->draft = $draft;
+
+        return $this;
+    }
+
+    /**
+     * Get draft
+     *
+     * @return boolean
+     */
+    public function getDraft()
+    {
+        return $this->draft;
+    }
+
+    /**
+     * Add productComment
+     *
+     * @param \AppBundle\Entity\ProductComment $productComment
+     *
+     * @return Product
+     */
+    public function addProductComment(\AppBundle\Entity\ProductComment $productComment)
+    {
+        $this->product_comments[] = $productComment;
+
+        return $this;
+    }
+
+    /**
+     * Remove productComment
+     *
+     * @param \AppBundle\Entity\ProductComment $productComment
+     */
+    public function removeProductComment(\AppBundle\Entity\ProductComment $productComment)
+    {
+        $this->product_comments->removeElement($productComment);
+    }
+
+    /**
+     * Get productComments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductComments()
+    {
+        return $this->product_comments;
+    }
+
+    /**
+     * Get amount of productComments
+     *
+     * @return int
+     */
+    public function getAmountOfProductComments()
+    {
+        return count($this->product_comments);
+    }
 }
